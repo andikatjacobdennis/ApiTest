@@ -96,7 +96,7 @@ To get started with the project:
     dotnet restore
     ```
 
-3. **Build the Project**:
+3. **Build the Solution**:
 
     ```bash
     dotnet build
