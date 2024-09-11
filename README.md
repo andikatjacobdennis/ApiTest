@@ -67,9 +67,9 @@ The `ApiTest` project includes the following main components:
 
 Below are placeholders for UML diagrams that illustrate the architecture and design of the `ApiTest` project. Replace these placeholders with your actual diagrams.
 
-- **Use Case Diagram**: ![Use Case Diagram](media/diagrams/use-case-diagram.png)
-- **Class Diagram**: ![Class Diagram](media/diagrams/class-diagram.png)
-- **Sequence Diagram**: ![Sequence Diagram](media/diagrams/sequence-diagram.png)
+- **Use Case Diagram**: ![Use Case Diagram](https://github.com/andikatjacobdennis/ApiTest/blob/main/Media/Diagrams/use-case-diagram.png)
+- **Class Diagram**: ![Class Diagram](/https://github.com/andikatjacobdennis/ApiTest/blob/main/Media/Diagrams/class-diagram.png)
+- **Sequence Diagram**: ![Sequence Diagram](https://github.com/andikatjacobdennis/ApiTest/blob/main/Media/Diagrams/sequence-diagram.png)
 
 ## Getting Started
 
