@@ -1,7 +1,4 @@
 ﻿using ApiTest.Contracts.Models;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace ApiTest.Services
 {
