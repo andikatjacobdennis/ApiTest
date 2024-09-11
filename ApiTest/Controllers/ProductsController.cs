@@ -17,7 +17,7 @@ namespace ApiTest.Controllers
         /// <summary>
         /// Initializes a new instance of the <see cref="ProductsController"/> class.
         /// </summary>
-        /// <param name="productService">The product service to interact with the product data.</param>
+        /// <param name="productService">The product service used to interact with product data.</param>
         public ProductsController(IProductService productService)
         {
             _productService = productService ?? throw new ArgumentNullException(nameof(productService));
@@ -26,13 +26,30 @@ namespace ApiTest.Controllers
         /// <summary>
         /// Creates a new product.
         /// </summary>
-        /// <param name="product">The product to create.</param>
+        /// <param name="product">The product to create. Must include name, description, and price.</param>
         /// <returns>
         /// A <see cref="CreatedAtActionResult"/> with the created product if successful (HTTP 201).
-        /// A <see cref="BadRequestResult"/> if the model state is invalid (HTTP 400).
-        /// A <see cref="ConflictResult"/> if the product already exists (HTTP 409).
+        /// <list type="bullet">
+        /// <item><description><see cref="Product"/>: The created product including the generated ID.</description></item>
+        /// </list>
+        /// <response code="201">Returns the newly created product.</response>
+        /// <response code="400">If the model is invalid.</response>
+        /// <response code="409">If a product with the same ID already exists.</response>
         /// </returns>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     POST /api/products
+        ///     {
+        ///        "name": "Product A",
+        ///        "description": "Description for Product A",
+        ///        "price": 19.99
+        ///     }
+        /// </remarks>
         [HttpPost]
+        [ProducesResponseType(typeof(Product), 201)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(409)]
         public async Task<IActionResult> CreateProduct([FromBody, Required] Product product)
         {
             if (!ModelState.IsValid)
@@ -51,16 +68,23 @@ namespace ApiTest.Controllers
             return CreatedAtAction(nameof(GetProduct), new { id = product.Id }, product);
         }
 
-
         /// <summary>
         /// Retrieves a product by its ID.
         /// </summary>
         /// <param name="id">The ID of the product to retrieve.</param>
         /// <returns>
-        /// A <see cref="OkObjectResult"/> containing the product if found (HTTP 200).
-        /// A <see cref="NotFoundResult"/> if the product is not found (HTTP 404).
+        /// A <see cref="OkObjectResult"/> containing the product if found.
+        /// <response code="200">Returns the product details.</response>
+        /// <response code="404">If the product is not found.</response>
         /// </returns>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     GET /api/products/{id}
+        /// </remarks>
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(Product), 200)]
+        [ProducesResponseType(404)]
         public async Task<IActionResult> GetProduct(Guid id)
         {
             var product = await _productService.GetProductByIdAsync(id);
@@ -73,17 +97,22 @@ namespace ApiTest.Controllers
         /// <summary>
         /// Retrieves a list of products with optional pagination and filtering.
         /// </summary>
-        /// <param name="pageNumber">The page number for pagination (default is 1).</param>
-        /// <param name="pageSize">The number of products per page (default is 10).</param>
         /// <param name="updatedAfter">Filter products that were updated after this date.</param>
-        /// <returns>A <see cref="OkObjectResult"/> containing the list of products (HTTP 200).</returns>
+        /// <returns>
+        /// A list of products with pagination information.
+        /// <response code="200">Returns the list of products.</response>
+        /// </returns>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     GET /api/products?updatedAfter=2023-01-01
+        /// </remarks>
         [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<Product>), 200)]
         public async Task<IActionResult> GetProducts(
-            [FromQuery] int pageNumber = 1,
-            [FromQuery] int pageSize = 10,
             [FromQuery] DateTime? updatedAfter = null)
         {
-            var products = await _productService.GetAllProductsAsync();
+            var products = await _productService.GetAllProductsAsync(updatedAfter);
             return Ok(products);
         }
 
@@ -91,13 +120,27 @@ namespace ApiTest.Controllers
         /// Updates an existing product.
         /// </summary>
         /// <param name="id">The ID of the product to update.</param>
-        /// <param name="updatedProduct">The updated product data.</param>
+        /// <param name="updatedProduct">The updated product data including name, description, and price.</param>
         /// <returns>
-        /// A <see cref="OkObjectResult"/> with the updated product if successful (HTTP 200).
-        /// A <see cref="BadRequestResult"/> if the model state is invalid (HTTP 400).
-        /// A <see cref="NotFoundResult"/> if the product is not found (HTTP 404).
+        /// A <see cref="OkObjectResult"/> with the updated product if successful.
+        /// <response code="200">Returns the updated product.</response>
+        /// <response code="400">If the model is invalid.</response>
+        /// <response code="404">If the product is not found.</response>
         /// </returns>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     PATCH /api/products/{id}
+        ///     {
+        ///        "name": "Updated Product A",
+        ///        "description": "Updated description for Product A",
+        ///        "price": 29.99
+        ///     }
+        /// </remarks>
         [HttpPatch("{id}")]
+        [ProducesResponseType(typeof(Product), 200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         public async Task<IActionResult> UpdateProduct(Guid id, [FromBody, Required] Product updatedProduct)
         {
             if (!ModelState.IsValid)
