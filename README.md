@@ -24,7 +24,7 @@ To switch to an actual database for production, you would need to update the con
 
 Swagger provides a convenient web interface for interacting with and testing your API endpoints. You can access Swagger UI by navigating to the following URL in your browser:
 
-[https://localhost:7134/Swagger/index.html](https://localhost:7134/Swagger/index.html)
+<a href="https://localhost:7134/Swagger/index.html" target="_blank">https://localhost:7134/Swagger/index.html</a>
 
 ### Using Swagger
 
@@ -37,7 +37,7 @@ Swagger provides a convenient web interface for interacting with and testing you
 
 You can view and interact with the product list through the web interface at:
 
-[https://localhost:7134/Products](https://localhost:7134/Products)
+<a href="https://localhost:7134/Products" target="_blank">https://localhost:7134/Products</a>
 
 ### Using the Product Page
 
@@ -67,15 +67,15 @@ The `ApiTest` project includes the following main components:
 
 - **Use Case Diagram**:
 
- ![Use Case Diagram](https://github.com/andikatjacobdennis/ApiTest/blob/main/Media/Diagrams/use-case-diagram.png)
+ <a href="https://github.com/andikatjacobdennis/ApiTest/blob/main/Media/Diagrams/use-case-diagram.png" target="_blank">![Use Case Diagram](https://github.com/andikatjacobdennis/ApiTest/blob/main/Media/Diagrams/use-case-diagram.png)</a>
  
 - **Class Diagram**:
 
-![Class Diagram](https://github.com/andikatjacobdennis/ApiTest/blob/main/Media/Diagrams/class-diagram.png)
+<a href="https://github.com/andikatjacobdennis/ApiTest/blob/main/Media/Diagrams/class-diagram.png" target="_blank">![Class Diagram](https://github.com/andikatjacobdennis/ApiTest/blob/main/Media/Diagrams/class-diagram.png)</a>
 
 - **Sequence Diagram**:
 
-![Sequence Diagram](https://github.com/andikatjacobdennis/ApiTest/blob/main/Media/Diagrams/sequence-diagram.png)
+<a href="https://github.com/andikatjacobdennis/ApiTest/blob/main/Media/Diagrams/sequence-diagram.png" target="_blank">![Sequence Diagram](https://github.com/andikatjacobdennis/ApiTest/blob/main/Media/Diagrams/sequence-diagram.png)</a>
 
 ## Getting Started
 
@@ -109,14 +109,13 @@ To get started with the project:
     dotnet run
     ```
 
-5. **Open Swagger UI**: Access Swagger UI at [https://localhost:7134/Swagger/index.html](https://localhost:7134/Swagger/index.html).
+5. **Open Swagger UI**: Access Swagger UI at <a href="https://localhost:7134/Swagger/index.html" target="_blank">https://localhost:7134/Swagger/index.html</a>.
 
- ![Product Page](https://github.com/andikatjacobdennis/ApiTest/blob/main/Media/Screenshots/swagger.png)
+ <a href="https://github.com/andikatjacobdennis/ApiTest/blob/main/Media/Screenshots/swagger.png" target="_blank">![Swagger UI](https://github.com/andikatjacobdennis/ApiTest/blob/main/Media/Screenshots/swagger.png)</a>
 
-6. **Access the Product Page**: Navigate to [https://localhost:7134/Products](https://localhost:7134/Products) to interact with the product data.
+6. **Access the Product Page**: Navigate to <a href="https://localhost:7134/Products" target="_blank">https://localhost:7134/Products</a> to interact with the product data.
 
-  ![Product Page](https://github.com/andikatjacobdennis/ApiTest/blob/main/Media/Screenshots/page.png)
-
+  <a href="https://github.com/andikatjacobdennis/ApiTest/blob/main/Media/Screenshots/page.png" target="_blank">![Product Page](https://github.com/andikatjacobdennis/ApiTest/blob/main/Media/Screenshots/page.png)</a>
 
 ## Contributing
 
