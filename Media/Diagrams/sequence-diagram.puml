@@ -1,0 +1,11 @@
+@startuml
+actor User
+
+User -> ProductsController : CreateProduct(product)
+ProductsController -> ProductService : AddProductAsync(product)
+ProductService -> ProductDbContext : Add(product)
+ProductDbContext -> ProductService : SaveChangesAsync()
+ProductService -> ProductsController : Task.CompletedTask
+ProductsController -> User : CreatedAtAction
+
+@enduml

@@ -1,0 +1,42 @@
+@startuml
+class Product {
+    - Id: Guid
+    - Name: string
+    - Description: string
+    - Price: decimal
+    - Created: DateTime
+    - LastUpdated: DateTime
+}
+
+interface IProductService {
+    + GetProductByIdAsync(id: Guid): Task<Product>
+    + GetAllProductsAsync(updatedAfter: DateTime?): Task<IEnumerable<Product>>
+    + AddProductAsync(product: Product): Task
+    + UpdateProductAsync(product: Product): Task
+}
+
+class ProductService {
+    - _context: ProductDbContext
+    + GetProductByIdAsync(id: Guid): Task<Product>
+    + GetAllProductsAsync(updatedAfter: DateTime?): Task<IEnumerable<Product>>
+    + AddProductAsync(product: Product): Task
+    + UpdateProductAsync(product: Product): Task
+}
+
+class ProductsController {
+    - _productService: IProductService
+    + CreateProduct(product: Product): Task<IActionResult>
+    + GetProduct(id: Guid): Task<IActionResult>
+    + GetProducts(pageNumber: int, pageSize: int, updatedAfter: DateTime?): Task<IActionResult>
+    + UpdateProduct(id: Guid, updatedProduct: Product): Task<IActionResult>
+}
+
+class ProductDbContext {
+    - Products: DbSet<Product>
+}
+
+ProductService ..|> IProductService
+ProductsController ..> IProductService
+ProductDbContext --> Product
+
+@enduml

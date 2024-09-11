@@ -1,0 +1,12 @@
+@startuml
+actor User
+
+User --> (Create Product)
+User --> (Get Product)
+User --> (Get Products)
+User --> (Update Product)
+
+(Create Product) .down.> (Get Product) : <<include>>
+(Get Products) .down.> (Update Product) : <<extend>>
+
+@enduml
