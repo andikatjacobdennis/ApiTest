@@ -53,7 +53,7 @@ The `ApiTest` project includes the following main components:
    - **CreateProduct**: Adds a new product to the database.
    - **GetProduct**: Retrieves a product by its ID.
    - **GetProducts**: Lists all products with optional filtering.
-   - **UpdateProduct**: Updates an existing product’s details.
+   - **UpdateProduct**: Updates an existing productâ€™s details.
 
 2. **Services**: The `IProductService` interface defines methods for product operations. Implementations of this interface handle data retrieval and persistence through the `ProductService`.
 
@@ -71,11 +71,11 @@ The `ApiTest` project includes the following main components:
  
 - **Class Diagram**:
 
-- ![Class Diagram](https://github.com/andikatjacobdennis/ApiTest/blob/main/Media/Diagrams/class-diagram.png)
+![Class Diagram](https://github.com/andikatjacobdennis/ApiTest/blob/main/Media/Diagrams/class-diagram.png)
 
 - **Sequence Diagram**:
 
-- ![Sequence Diagram](https://github.com/andikatjacobdennis/ApiTest/blob/main/Media/Diagrams/sequence-diagram.png)
+![Sequence Diagram](https://github.com/andikatjacobdennis/ApiTest/blob/main/Media/Diagrams/sequence-diagram.png)
 
 ## Getting Started
 
