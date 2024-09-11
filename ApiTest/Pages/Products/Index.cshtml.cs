@@ -41,6 +41,16 @@ namespace ApiTest.Pages.Products
         public DateTime? UpdatedAfter { get; set; }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public int TotalItems { get; set; }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        public int TotalPages { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether there are more pages available for pagination.
         /// </summary>
         public bool HasMorePages { get; set; }
@@ -60,16 +70,23 @@ namespace ApiTest.Pages.Products
         /// </remarks>
         public async Task OnGetAsync(int pageNumber = 1, int pageSize = 10, DateTime? updatedAfter = null)
         {
-            PageNumber = pageNumber;
+            PageNumber = pageNumber < 1 ? 1 : pageNumber;
             PageSize = pageSize;
             UpdatedAfter = updatedAfter;
 
             var productsQuery = await _productService.GetAllProductsAsync(updatedAfter);
+            var filteredProducts = productsQuery.OrderBy(p => p.Name);
 
-            var filteredProducts = productsQuery
-                .OrderBy(p => p.Name);
+            TotalItems = filteredProducts.Count(); // Total count for pagination
 
-            var totalProducts = filteredProducts.Count(); // Total count for pagination
+            // Calculate total pages and ensure at least 1 page if there are items
+            TotalPages = TotalItems > 0 ? (int)Math.Ceiling((double)TotalItems / PageSize) : 1;
+
+            // Ensure page number does not exceed total pages
+            if (PageNumber > TotalPages)
+            {
+                PageNumber = TotalPages > 0 ? TotalPages : 1; // Default to page 1 if there are no products
+            }
 
             var productsList = filteredProducts
                 .Skip((PageNumber - 1) * PageSize)
@@ -79,5 +96,9 @@ namespace ApiTest.Pages.Products
             Products = productsList.Take(PageSize).ToList();
             HasMorePages = productsList.Count > PageSize;
         }
+
+
+
+
     }
 }
