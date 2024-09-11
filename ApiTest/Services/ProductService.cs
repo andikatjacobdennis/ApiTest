@@ -13,23 +13,23 @@ namespace ApiTest.Services
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<Product?> GetProductByIdAsync(Guid id)
+        public async Task<ProductModel?> GetProductByIdAsync(Guid id)
         {
             return await _context.Products.FindAsync(id);
         }
 
-        public async Task<IEnumerable<Product>> GetAllProductsAsync()
+        public async Task<IEnumerable<ProductModel>> GetAllProductsAsync()
         {
             return await _context.Products.ToListAsync();
         }
 
-        public async Task AddProductAsync(Product product)
+        public async Task AddProductAsync(ProductModel product)
         {
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateProductAsync(Product product)
+        public async Task UpdateProductAsync(ProductModel product)
         {
             _context.Products.Update(product);
             await _context.SaveChangesAsync();

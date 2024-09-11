@@ -1,6 +1,6 @@
 ﻿namespace ApiTest.Contracts.Models
 {
-    public class Product
+    public class ProductModel
     {
         public Guid Id { get; set; }
         public string? Name { get; set; }

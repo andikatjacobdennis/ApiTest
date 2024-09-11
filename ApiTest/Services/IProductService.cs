@@ -4,9 +4,9 @@ namespace ApiTest.Services
 {
     public interface IProductService
     {
-        Task<Product?> GetProductByIdAsync(Guid id);
-        Task<IEnumerable<Product>> GetAllProductsAsync();
-        Task AddProductAsync(Product product);
-        Task UpdateProductAsync(Product product);
+        Task<ProductModel?> GetProductByIdAsync(Guid id);
+        Task<IEnumerable<ProductModel>> GetAllProductsAsync();
+        Task AddProductAsync(ProductModel product);
+        Task UpdateProductAsync(ProductModel product);
     }
 }

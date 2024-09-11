@@ -17,7 +17,7 @@ namespace ApiTest.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateProduct([FromBody, Required] Product product)
+        public async Task<IActionResult> CreateProduct([FromBody, Required] ProductModel product)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -53,7 +53,7 @@ namespace ApiTest.Controllers
         }
 
         [HttpPatch("{id}")]
-        public async Task<IActionResult> UpdateProduct(Guid id, [FromBody, Required] Product updatedProduct)
+        public async Task<IActionResult> UpdateProduct(Guid id, [FromBody, Required] ProductModel updatedProduct)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
