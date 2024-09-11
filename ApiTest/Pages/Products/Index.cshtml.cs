@@ -41,12 +41,12 @@ namespace ApiTest.Pages.Products
         public DateTime? UpdatedAfter { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the total number of items across all pages.
         /// </summary>
         public int TotalItems { get; set; }
-        
+
         /// <summary>
-        /// 
+        /// Gets or sets the total number of pages based on the current page size.
         /// </summary>
         public int TotalPages { get; set; }
 
