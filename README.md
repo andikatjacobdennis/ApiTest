@@ -4,6 +4,34 @@
 
 `ApiTest` is a .NET Core project designed to manage products through a RESTful API. The API provides endpoints to create, retrieve, update, and list products. The project includes a web-based user interface and utilizes Swagger for API documentation and testing.
 
+## Version Information
+
+- **.NET Core Version**: 8.0.400
+- **Entity Framework Core Version**: 8.0.8
+- **Swagger Version**: 6.7.3
+- **MOQ Version**: 4.20.72
+
+## Operating System and Browser Support
+
+### Supported Operating Systems (Tested)
+
+- Windows 11 64-bit
+
+### Supported Browsers (Tested)
+
+- **Google Chrome Version**: 128.0.6613.121 (Official Build) (64-bit)
+- **Opera Version**: 113.0.5230.62
+
+## Libraries and Dependencies
+
+The project uses the following libraries and dependencies:
+
+- **Microsoft.EntityFrameworkCore.InMemory**: Provides an in-memory database for development and testing.
+- **Microsoft.AspNetCore.Mvc**: For building the API endpoints and handling HTTP requests.
+- **Swashbuckle.AspNetCore**: For generating Swagger documentation and UI.
+- **Moq**: For unit testing and mocking dependencies.
+- **MSTest.TestFramework**: For running unit tests.
+
 ## In-Memory Feature
 
 For development and testing purposes, `ApiTest` uses an in-memory database. This feature allows you to run and test the application without needing a persistent database. All data is stored in memory and will be lost when the application restarts.
