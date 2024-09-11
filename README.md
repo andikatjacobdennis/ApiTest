@@ -65,8 +65,6 @@ The `ApiTest` project includes the following main components:
 
 ## UML Diagrams
 
-Below are placeholders for UML diagrams that illustrate the architecture and design of the `ApiTest` project. Replace these placeholders with your actual diagrams.
-
 - **Use Case Diagram**:
 
  ![Use Case Diagram](https://github.com/andikatjacobdennis/ApiTest/blob/main/Media/Diagrams/use-case-diagram.png)
