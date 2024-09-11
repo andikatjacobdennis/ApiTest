@@ -110,11 +110,12 @@ To get started with the project:
 
 5. **Open Swagger UI**: Access Swagger UI at [https://localhost:7134/Swagger/index.html](https://localhost:7134/Swagger/index.html).
 
- ![Product Page](https://github.com/andikatjacobdennis/ApiTest/blob/main/Media/Screenshots/page.png)
+ ![Product Page](https://github.com/andikatjacobdennis/ApiTest/blob/main/Media/Screenshots/swagger.png)
 
 6. **Access the Product Page**: Navigate to [https://localhost:7134/Products](https://localhost:7134/Products) to interact with the product data.
 
- ![Product Page](https://github.com/andikatjacobdennis/ApiTest/blob/main/Media/Screenshots/swagger.png)
+  ![Product Page](https://github.com/andikatjacobdennis/ApiTest/blob/main/Media/Screenshots/page.png)
+
 
 ## Contributing
 
