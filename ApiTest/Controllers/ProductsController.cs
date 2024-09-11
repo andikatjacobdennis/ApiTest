@@ -1,7 +1,7 @@
 ﻿using ApiTest.Contracts.Models;
-using ApiTest.Entity.Data;
+using ApiTest.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace ApiTest.Controllers
 {
@@ -9,25 +9,28 @@ namespace ApiTest.Controllers
     [Route("api/[controller]")]
     public class ProductsController : ControllerBase
     {
-        private readonly ProductDbContext _context;
+        private readonly IProductService _productService;
 
-        public ProductsController(ProductDbContext context)
+        public ProductsController(IProductService productService)
         {
-            _context = context;
+            _productService = productService ?? throw new ArgumentNullException(nameof(productService));
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateProduct(Product product)
+        public async Task<IActionResult> CreateProduct([FromBody, Required] Product product)
         {
-            if (await _context.Products.AnyAsync(p => p.Id == product.Id))
-                return BadRequest("Product already exists.");
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var existingProduct = await _productService.GetProductByIdAsync(product.Id);
+            if (existingProduct != null)
+                return Conflict("Product already exists.");
 
             product.Id = Guid.NewGuid();
             product.Created = DateTime.UtcNow;
             product.LastUpdated = DateTime.UtcNow;
 
-            _context.Products.Add(product);
-            await _context.SaveChangesAsync();
+            await _productService.AddProductAsync(product);
 
             return CreatedAtAction(nameof(GetProduct), new { id = product.Id }, product);
         }
@@ -35,7 +38,7 @@ namespace ApiTest.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProduct(Guid id)
         {
-            var product = await _context.Products.FindAsync(id);
+            var product = await _productService.GetProductByIdAsync(id);
             if (product == null)
                 return NotFound();
 
@@ -45,14 +48,17 @@ namespace ApiTest.Controllers
         [HttpGet]
         public async Task<IActionResult> GetProducts()
         {
-            var products = await _context.Products.ToListAsync();
+            var products = await _productService.GetAllProductsAsync();
             return Ok(products);
         }
 
         [HttpPatch("{id}")]
-        public async Task<IActionResult> UpdateProduct(Guid id, Product updatedProduct)
+        public async Task<IActionResult> UpdateProduct(Guid id, [FromBody, Required] Product updatedProduct)
         {
-            var product = await _context.Products.FindAsync(id);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var product = await _productService.GetProductByIdAsync(id);
             if (product == null)
                 return NotFound();
 
@@ -61,8 +67,7 @@ namespace ApiTest.Controllers
             product.Price = updatedProduct.Price;
             product.LastUpdated = DateTime.UtcNow;
 
-            _context.Products.Update(product);
-            await _context.SaveChangesAsync();
+            await _productService.UpdateProductAsync(product);
 
             return Ok(product);
         }

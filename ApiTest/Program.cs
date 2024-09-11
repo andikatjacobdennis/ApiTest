@@ -1,3 +1,4 @@
+using ApiTest.Services;
 using ApiTest.Entity.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -8,6 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddDbContext<ProductDbContext>(options =>
     options.UseInMemoryDatabase("ProductDb"));
+
+// Register the ProductService
+builder.Services.AddScoped<IProductService, ProductService>();
 
 // Register Swagger generator
 builder.Services.AddSwaggerGen(c =>
