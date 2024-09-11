@@ -105,6 +105,7 @@ To get started with the project:
 4. **Run the Application**:
 
     ```bash
+    cd ApiTest
     dotnet run
     ```
 
