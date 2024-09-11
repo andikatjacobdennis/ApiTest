@@ -17,7 +17,7 @@ namespace ApiTest.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateProduct([FromBody, Required] ProductModel product)
+        public async Task<IActionResult> CreateProduct([FromBody, Required] Product product)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -27,8 +27,8 @@ namespace ApiTest.Controllers
                 return Conflict("Product already exists.");
 
             product.Id = Guid.NewGuid();
-            product.Created = DateTime.UtcNow;
-            product.LastUpdated = DateTime.UtcNow;
+            product.Created = DateTime.Now;
+            product.LastUpdated = DateTime.Now;
 
             await _productService.AddProductAsync(product);
 
@@ -46,14 +46,17 @@ namespace ApiTest.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetProducts()
+        public async Task<IActionResult> GetProducts(
+            [FromQuery] int pageNumber = 1,
+            [FromQuery] int pageSize = 10,
+            [FromQuery] DateTime? updatedAfter = null)
         {
             var products = await _productService.GetAllProductsAsync();
             return Ok(products);
         }
 
         [HttpPatch("{id}")]
-        public async Task<IActionResult> UpdateProduct(Guid id, [FromBody, Required] ProductModel updatedProduct)
+        public async Task<IActionResult> UpdateProduct(Guid id, [FromBody, Required] Product updatedProduct)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -65,7 +68,7 @@ namespace ApiTest.Controllers
             product.Name = updatedProduct.Name;
             product.Description = updatedProduct.Description;
             product.Price = updatedProduct.Price;
-            product.LastUpdated = DateTime.UtcNow;
+            product.LastUpdated = DateTime.Now;
 
             await _productService.UpdateProductAsync(product);
 

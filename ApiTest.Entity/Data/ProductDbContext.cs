@@ -9,6 +9,6 @@ namespace ApiTest.Entity.Data
         {
         }
 
-        public DbSet<ProductModel> Products { get; set; }
+        public DbSet<Product> Products { get; set; }
     }
 }

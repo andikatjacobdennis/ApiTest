@@ -13,23 +13,30 @@ namespace ApiTest.Services
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<ProductModel?> GetProductByIdAsync(Guid id)
+        public async Task<Product?> GetProductByIdAsync(Guid id)
         {
             return await _context.Products.FindAsync(id);
         }
 
-        public async Task<IEnumerable<ProductModel>> GetAllProductsAsync()
+        public async Task<IEnumerable<Product>> GetAllProductsAsync(DateTime? updatedAfter = null)
         {
-            return await _context.Products.ToListAsync();
+            var query = _context.Products.AsQueryable();
+
+            if (updatedAfter.HasValue)
+            {
+                query = query.Where(p => p.LastUpdated > updatedAfter.Value);
+            }
+
+            return await query.ToListAsync();
         }
 
-        public async Task AddProductAsync(ProductModel product)
+        public async Task AddProductAsync(Product product)
         {
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateProductAsync(ProductModel product)
+        public async Task UpdateProductAsync(Product product)
         {
             _context.Products.Update(product);
             await _context.SaveChangesAsync();

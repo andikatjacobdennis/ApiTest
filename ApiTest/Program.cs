@@ -1,45 +1,53 @@
-using ApiTest.Services;
 using ApiTest.Entity.Data;
+using ApiTest.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddRazorPages();
 builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "ApiTest", Version = "v1" });
+});
+
+// Configure Entity Framework and InMemory Database
 builder.Services.AddDbContext<ProductDbContext>(options =>
-    options.UseInMemoryDatabase("ProductDb"));
+    options.UseInMemoryDatabase("ProductsDatabase"));
 
 // Register the ProductService
 builder.Services.AddScoped<IProductService, ProductService>();
 
-// Register Swagger generator
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new OpenApiInfo
-    {
-        Version = "v1",
-        Title = "Product API",
-        Description = "A simple API to manage products"
-    });
-});
+// Register HttpClient
+builder.Services.AddHttpClient();
 
 var app = builder.Build();
 
-// Enable Swagger and Swagger UI
+// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Product API v1");
-        c.RoutePrefix = string.Empty; // Set Swagger UI at root
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "ApiTest v1");
     });
+}
+else
+{
+    app.UseExceptionHandler("/Error");
+    app.UseHsts();
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
+app.UseRouting();
 app.UseAuthorization();
+
 app.MapControllers();
+app.MapRazorPages();
 
 app.Run();
